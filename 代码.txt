@@ -1,0 +1,454 @@
+ #-*- coding:utf-8 -*-
+import tkinter as TK
+import filedialog as FD
+import csv as CSV
+import numpy as np
+import FileDialog
+import math
+import numpy
+import os
+ 
+def pro_data(dat,filename):
+    #print(dat[1][1])
+    num = 0
+    for line in dat:
+        num+=1
+    if num%4 != 0:
+        t.delete(1.0, 'end')
+        t.insert(num, 'error!')
+    else:
+        m = -1
+        #print (dat[m+1][6])
+        print num
+        for i in range(num):
+            for j in range(7):
+                dat[i][j] = float( dat[i][j] )
+                dat[i][j] = round( dat[i][j] , 12)
+        '''
+        for i in range(num):
+            dat[i][5] = int(dat[i][5])
+        '''
+        while m+4 <= num-1 :    
+ 
+            if dat[m+1][6] == 1:
+                n = m
+                # print ( type(math.cos(math.radians(int(dat[n + 1][5])))) )
+                # print ( type(dat[n + 1][1]) )
+                # math.sin(math.radians(90))
+                a_13 = 1*dat[n+1][0]
+                # print (a_13)
+                # print (dat[n + 1][2] * math.sin(math.radians( (dat[n + 1][5]) )))
+                # print (dat[n + 1][3] * 0)
+                # print ( dat[n + 1][0] * 0 + dat[n + 1][1] * math.cos(math.radians( (dat[n + 1][5]) )) + dat[n + 1][2] * math.sin(math.radians( (dat[n + 1][5]) )) + dat[n + 1][3] * 0 )
+                a_23 = 1*dat[n+1][1]
+                # print (a_23)
+                a_33 = 1*dat[n+1][2]
+                a_43 = 1*dat[n+1][3]
+ 
+                b_13 = math.cos(math.radians((dat[n + 1][5])))*dat[n+2][0] - math.sin(math.radians((dat[n + 2][5])))*dat[n+3][0]
+                b_23 = math.cos(math.radians((dat[n + 1][5])))*dat[n+2][1] - math.sin(math.radians((dat[n + 2][5])))*dat[n+3][1]
+                b_33 = math.cos(math.radians((dat[n + 1][5])))*dat[n+2][2] - math.sin(math.radians((dat[n + 2][5])))*dat[n+3][2]
+                b_43 = math.cos(math.radians((dat[n + 1][5])))*dat[n+2][3] - math.sin(math.radians((dat[n + 2][5])))*dat[n+3][3]
+ 
+                c_13 = math.sin(math.radians((dat[n + 1][5])))*dat[n+2][0] + math.cos(math.radians((dat[n + 2][5])))*dat[n+3][0]
+                c_23 = math.sin(math.radians((dat[n + 1][5])))*dat[n+2][1] + math.cos(math.radians((dat[n + 2][5])))*dat[n+3][1]
+                c_33 = math.sin(math.radians((dat[n + 1][5])))*dat[n+2][2] + math.cos(math.radians((dat[n + 2][5])))*dat[n+3][2]
+                c_43 = math.sin(math.radians((dat[n + 1][5])))*dat[n+2][3] + math.cos(math.radians((dat[n + 2][5])))*dat[n+3][3]
+ 
+                d_13 = 1 * dat[n + 4][0]
+                d_23 = 1 * dat[n + 4][1]
+                d_33 = 1 * dat[n + 4][2]
+                d_43 = 1 * dat[n + 4][3]
+ 
+                print 'x'
+                print a_13, a_23, a_33, a_43
+                print b_13, b_23, b_33, b_43
+                print c_13, c_23, c_33, c_43
+                print d_13, d_23, d_33, d_43
+ 
+                a_12 = math.cos(math.radians((dat[n + 2][5]))) * a_13 + math.sin(math.radians((dat[n + 2][5]))) * c_13
+                a_22 = math.cos(math.radians((dat[n + 2][5]))) * a_23 + math.sin(math.radians((dat[n + 2][5]))) * c_23
+                a_32 = math.cos(math.radians((dat[n + 2][5]))) * a_33 + math.sin(math.radians((dat[n + 2][5]))) * c_33
+                a_42 = math.cos(math.radians((dat[n + 2][5]))) * a_43 + math.sin(math.radians((dat[n + 2][5]))) * c_43
+ 
+                b_12 = 1 * b_13
+                b_22 = 1 * b_23
+                b_32 = 1 * b_33
+                b_42 = 1 * b_43
+ 
+                c_12 =  -math.sin(math.radians((dat[n + 2][5]))) * a_13 + math.cos(math.radians((dat[n + 2][5]))) * c_13
+                c_22 =  -math.sin(math.radians((dat[n + 2][5]))) * a_23 + math.cos(math.radians((dat[n + 2][5]))) * c_23
+                c_32 =  -math.sin(math.radians((dat[n + 2][5]))) * a_33 + math.cos(math.radians((dat[n + 2][5]))) * c_33
+                c_42 =  -math.sin(math.radians((dat[n + 2][5]))) * a_43 + math.cos(math.radians((dat[n + 2][5]))) * c_43
+ 
+                d_12 = 1 * d_13
+                d_22 = 1 * d_23
+                d_32 = 1 * d_33
+                d_42 = 1 * d_43
+ 
+                print math.cos(math.radians((dat[n + 2][5]))) * a_33
+                print a_12, a_22, a_32, a_42
+                print b_12, b_22, b_32, b_42
+                print c_12, c_22, c_32, c_42
+                print d_12, d_22, d_32, d_42
+ 
+                a_11 = math.cos(math.radians((dat[n + 3][5]))) * a_12 - math.sin(math.radians((dat[n + 3][5]))) * b_12
+                '''
+                print 'a11'
+                print  dat[n + 3][5]
+                print math.radians(90)
+                print math.cos(math.radians(90))
+                print  math.cos(math.radians( (dat[n + 3][5]) ))
+                print  math.sin(math.radians( (dat[n + 3][5]) ))
+            '''
+                a_21 = math.cos(math.radians((dat[n + 3][5]))) * a_22 - math.sin(math.radians((dat[n + 3][5]))) * b_22
+                a_31 = math.cos(math.radians((dat[n + 3][5]))) * a_32 - math.sin(math.radians((dat[n + 3][5]))) * b_32
+                a_41 = math.cos(math.radians((dat[n + 3][5]))) * a_42 - math.sin(math.radians((dat[n + 3][5]))) * b_42
+ 
+                b_11 = math.sin(math.radians((dat[n + 3][5]))) * a_12 + math.cos(math.radians((dat[n + 3][5]))) * b_12
+                b_21 = math.sin(math.radians((dat[n + 3][5]))) * a_22 + math.cos(math.radians((dat[n + 3][5]))) * b_22
+                b_31 = math.sin(math.radians((dat[n + 3][5]))) * a_32 + math.cos(math.radians((dat[n + 3][5]))) * b_32
+                b_41 = math.sin(math.radians((dat[n + 3][5]))) * a_42 + math.cos(math.radians((dat[n + 3][5]))) * b_42
+ 
+                c_11 = 1 * c_12
+                c_21 = 1 * c_22
+                c_31 = 1 * c_32
+                c_41 = 1 * c_42
+ 
+                d_11 = d_12
+                d_21 = d_22
+                d_31 = d_32
+                d_41 = d_42
+ 
+                print 'z'
+                print a_11, a_21, a_31, a_41
+                print b_11, b_21, b_31, b_41
+                print c_11, c_21, c_31, c_41
+                print d_11, d_21, d_31, d_41
+ 
+                a_1 = 1 * a_11 + dat[n+1][4] * d_11
+                a_2 = 1 * a_21 + dat[n+1][4] * d_21
+                a_3 = 1 * a_31 + dat[n+1][4] * d_31
+                a_4 = 1 * a_41 + dat[n+1][4] * d_41
+ 
+                b_1 = 1 * b_11 + dat[n+2][4] * d_11
+                b_2 = 1 * b_21 + dat[n+2][4] * d_21
+                b_3 = 1 * b_31 + dat[n+2][4] * d_31
+                b_4 = 1 * b_41 + dat[n+2][4] * d_41
+ 
+                c_1 = 1 * c_11 + dat[n + 3][4] * d_11
+                c_2 = 1 * c_21 + dat[n + 3][4] * d_21
+                c_3 = 1 * c_31 + dat[n + 3][4] * d_31
+                c_4 = 1 * c_41 + dat[n + 3][4] * d_41
+ 
+                d_1 = 1 * d_11
+                d_2 = 1 * d_21
+                d_3 = 1 * d_31
+                d_4 = 1 * d_41
+ 
+                print 's'
+                print a_1, a_2, a_3, a_4
+                print b_1, b_2, b_3, b_4
+                print c_1, c_2, c_3, c_4
+                print d_1, d_2, d_3, d_4
+ 
+                if abs(a_1) < 1.0e-10:
+                    a_1 = 0
+                if abs(b_1) < 1.0e-10:
+                    b_1 = 0
+                if abs(c_1) < 1.0e-10:
+                    c_1 = 0
+                if abs(d_1) < 1.0e-10:
+                    d_1 = 0
+                if abs(a_2) < 1.0e-10:
+                    a_2 = 0
+                if abs(b_2) < 1.0e-10:
+                    b_2 = 0
+                if abs(c_2) < 1.0e-10:
+                    c_2 = 0
+                if abs(d_2) < 1.0e-10:
+                    d_2 = 0
+                if abs(a_3) < 1.0e-10:
+                    a_3 = 0
+                if abs(b_3) < 1.0e-10:
+                    b_3 = 0
+                if abs(c_3) < 1.0e-10:
+                    c_3 = 0
+                if abs(d_3) < 1.0e-10:
+                    d_3 = 0
+                if abs(a_4) < 1.0e-10:
+                    a_4 = 0
+                if abs(b_4) < 1.0e-10:
+                    b_4 = 0
+                if abs(c_4) < 1.0e-10:
+                    c_4 = 0
+                if abs(d_4) < 1.0e-10:
+                    d_4 = 0
+ 
+                m += 4
+ 
+                i = 0
+                for word in dat[0]:
+                    i += 1
+                if i > 11:
+                    continue
+ 
+                dat[n + 1].append(a_1)
+                dat[n + 1].append(a_2)
+                dat[n + 1].append(a_3)
+                dat[n + 1].append(a_4)
+                dat[n + 2].append(b_1)
+                dat[n + 2].append(b_2)
+                dat[n + 2].append(b_3)
+                dat[n + 2].append(b_4)
+                dat[n + 3].append(c_1)
+                dat[n + 3].append(c_2)
+                dat[n + 3].append(c_3)
+                dat[n + 3].append(c_4)
+                dat[n + 4].append(d_1)
+                dat[n + 4].append(d_2)
+                dat[n + 4].append(d_3)
+                dat[n + 4].append(d_4)
+ 
+            if m + 1 > num-1:
+                continue
+ 
+            if dat[m+1][6] == 0:
+                n = m
+                #print ( type(math.cos(math.radians(int(dat[n + 1][5])))) )
+                #print ( type(dat[n + 1][1]) )
+                #math.sin(math.radians(90))
+                a_13 = dat[n + 1][0] * 1 + dat[n + 1][1] * 0 + dat[n + 1][2] * 0 + dat[n + 1][3] * 0
+                #print (a_13)
+                #print (dat[n + 1][2] * math.sin(math.radians( (dat[n + 1][5]) )))
+                #print (dat[n + 1][3] * 0)
+                #print ( dat[n + 1][0] * 0 + dat[n + 1][1] * math.cos(math.radians( (dat[n + 1][5]) )) + dat[n + 1][2] * math.sin(math.radians( (dat[n + 1][5]) )) + dat[n + 1][3] * 0 )
+                a_23 = dat[n + 1][0] * 0 + dat[n + 1][1] * math.cos(math.radians( (dat[n + 1][5]) )) + dat[n + 1][2] * math.sin(math.radians( (dat[n + 1][5]) )) + dat[n + 1][3] * 0
+                #print (a_23)
+                a_33 = dat[n + 1][0] * 0 - dat[n + 1][1] * math.sin(math.radians( (dat[n + 1][5]) )) + dat[n + 1][2] * math.cos(math.radians( (dat[n + 1][5]) )) + dat[n + 1][3] * 0
+                a_43 = dat[n + 1][0] * 0 + dat[n + 1][1] * 0 + dat[n + 1][2] * 0 + dat[n + 1][3] * 1
+ 
+                b_13 = dat[n + 2][0] * 1 + dat[n + 2][1] * 0 - dat[n + 2][2] * 0 + dat[n + 2][3] * 0
+                b_23 = dat[n + 2][0] * 0 + dat[n + 2][1] * math.cos(math.radians( (dat[n + 1][5]) )) + dat[n + 2][2] * math.sin(math.radians( (dat[n + 1][5]) )) + dat[n + 2][3] * 0
+                b_33 = dat[n + 2][0] * 0 - dat[n + 2][1] * math.sin(math.radians( (dat[n + 1][5]) ))+ dat[n + 2][2] * math.cos(math.radians( (dat[n + 1][5]) ))+ dat[n + 2][3] * 0
+                b_43 = dat[n + 2][0] * 0 + dat[n + 2][1] * 0 + dat[n + 2][2] * 0 + dat[n + 2][3] * 1
+ 
+                c_13 = dat[n + 3][0] * 1 + dat[n + 3][1] * 0 + dat[n + 3][2] * 0 + dat[n + 3][3] * 0
+                c_23 = dat[n + 3][0] * 0 + dat[n + 3][1] * math.cos(math.radians( (dat[n + 1][5]) )) + dat[n + 3][2] * math.sin(math.radians( (dat[n + 1][5]) )) + dat[n + 3][3] * 0
+                c_33 = dat[n + 3][0] * 0 - dat[n + 3][1] * math.sin(math.radians( (dat[n + 1][5]) )) + dat[n + 3][2] * math.cos(math.radians( (dat[n + 1][5]) )) + dat[n + 3][3] * 0
+                c_43 = dat[n + 3][0] * 0 + dat[n + 3][1] * 0 + dat[n + 3][2] * 0 + dat[n + 3][3] * 1
+ 
+                d_13 = dat[n + 4][0] * 1 + dat[n + 4][1] * 0 + dat[n + 4][2] * 0 + dat[n + 4][3] * 0
+                d_23 = dat[n + 4][0] * 0 + dat[n + 4][1] * math.cos(math.radians( (dat[n + 1][5]) )) + dat[n + 4][2] * math.sin(math.radians( (dat[n + 1][5]) )) + dat[n + 4][3] * 0
+                d_33 = dat[n + 4][0] * 0 - dat[n + 4][1] * math.sin(math.radians( (dat[n + 1][5]) )) + dat[n + 4][2] * math.cos(math.radians( (dat[n + 1][5]) )) + dat[n + 4][3] * 0
+                d_43 = dat[n + 4][0] * 0 + dat[n + 4][1] * 0 + dat[n + 4][2] * 0 + dat[n + 4][3] * 1
+ 
+                print 'x'
+                print a_13, a_23, a_33, a_43
+                print b_13, b_23, b_33, b_43
+                print c_13, c_23, c_33, c_43
+                print d_13, d_23, d_33, d_43
+ 
+                a_12 = a_13 * math.cos(math.radians( (dat[n + 2][5]) )) + a_23 * 0 - a_33 * math.sin(math.radians( (dat[n + 2][5]) )) + a_43 * 0
+                a_22 = a_13 * 0 + a_23 * 1 + a_33 * 0 + a_43 * 0
+                a_32 = a_13 * math.sin(math.radians( (dat[n + 2][5]) )) + a_23 * 0 + a_33 * math.cos(math.radians( (dat[n + 2][5]) )) + a_43 * 0
+                a_42 = a_13 * 0 + a_23 * 0 + a_33 * 0 + a_43 * 1
+ 
+                b_12 = b_13 * math.cos(math.radians( (dat[n + 2][5]) )) + b_23 * 0 - b_33 * math.sin(math.radians( (dat[n + 2][5]) )) + b_43 * 0
+                b_22 = b_13 * 0 + b_23 * 1 + b_33 * 0 + b_43 * 0
+                b_32 = b_13 * math.sin(math.radians( (dat[n + 2][5]) )) + b_23 * 0 + b_33 * math.cos(math.radians( (dat[n + 2][5]) )) + b_43 * 0
+                b_42 = b_13 * 0 + b_23 * 0 + b_33 * 0 + b_43 * 1
+ 
+                c_12 = c_13 * math.cos(math.radians( (dat[n + 2][5]) )) + c_23 * 0 - c_33 * math.sin(math.radians( (dat[n + 2][5]) )) + c_43 * 0
+                c_22 = c_13 * 0 + c_23 * 1 + c_33 * 0 + c_43 * 0
+                c_32 = c_13 * math.sin(math.radians( (dat[n + 2][5]) )) + c_23 * 0 + c_33 * math.cos(math.radians( (dat[n + 2][5]) )) + c_43 * 0
+                c_42 = c_13 * 0 + c_23 * 0 + c_33 * 0 + c_43 * 1
+ 
+                d_12 = d_13 * math.cos(math.radians( (dat[n + 2][5]) )) + d_23 * 0 - d_33 * math.sin(math.radians( (dat[n + 2][5]) )) + d_43 * 0
+                d_22 = d_13 * 0 + d_23 * 1 + d_33 * 0 + d_43 * 0
+                d_32 = d_13 * math.sin(math.radians( (dat[n + 2][5]) )) + d_23 * 0 + d_33 * math.cos(math.radians( (dat[n + 2][5]) )) + d_43 * 0
+                d_42 = d_13 * 0 + d_23 * 0 + d_33 * 0 + d_43 * 1
+ 
+                print 'y'
+                print a_12, a_22, a_32, a_42
+                print b_12, b_22, b_32, b_42
+                print c_12, c_22, c_32, c_42
+                print d_12, d_22, d_32, d_42
+ 
+                a_11 = a_12 * math.cos(math.radians( (dat[n + 3][5]) )) + a_22 * math.sin(math.radians( (dat[n + 3][5]) )) + a_32 * 0 + a_42 * 0
+                '''
+                print 'a11'
+                print  dat[n + 3][5]
+                print math.radians(90)
+                print math.cos(math.radians(90))
+                print  math.cos(math.radians( (dat[n + 3][5]) ))
+                print  math.sin(math.radians( (dat[n + 3][5]) ))
+            '''
+                a_21 = - a_12 * math.sin(math.radians( (dat[n + 3][5]) )) + a_22 * math.cos(math.radians( (dat[n + 3][5]) )) + a_32 * 0 + a_42 * 0
+                a_31 = a_12 * 0 + a_22 * 0 + a_32 * 1 + a_42 * 0
+                a_41 = a_12 * 0 + a_22 * 0 + a_32 * 0 + a_42 * 1
+ 
+                b_11 = b_12 * math.cos(math.radians( (dat[n + 3][5]) )) + b_22 * math.sin(math.radians( (dat[n + 3][5]) )) + b_32 * 0 + b_42 * 0
+                b_21 = - b_12 * math.sin(math.radians( (dat[n + 3][5]) )) + b_22 * math.cos(math.radians( (dat[n + 3][5]) )) + b_32 * 0 + b_42 * 0
+                b_31 = b_12 * 0 + b_22 * 0 + b_32 * 1 + b_42 * 0
+                b_41 = b_12 * 0 + b_22 * 0 + b_32 * 0 + b_42 * 1
+ 
+                c_11 = c_12 * math.cos(math.radians( (dat[n + 3][5]) )) + c_22 * math.sin(math.radians( (dat[n + 3][5]) )) + c_32 * 0 + c_42 * 0
+                c_21 = - c_12 * math.sin(math.radians( (dat[n + 3][5]) )) + c_22 * math.cos(math.radians( (dat[n + 3][5]) )) + c_32 * 0 + c_42 * 0
+                c_31 = c_12 * 0 + c_22 * 0 + c_32 * 1 + c_42 * 0
+                c_41 = c_12 * 0 + c_22 * 0 + c_32 * 0 + c_42 * 1
+ 
+                d_11 = d_12 * math.cos(math.radians( (dat[n + 3][5]) )) + d_22 * math.sin(math.radians( (dat[n + 3][5]) )) + d_32 * 0 + d_42 * 0
+                d_21 = - d_12 * math.sin(math.radians( (dat[n + 3][5]) )) + d_22 * math.cos(math.radians( (dat[n + 3][5]) )) + d_32 * 0 + d_42 * 0
+                d_31 = d_12 * 0 + d_22 * 0 + d_32 * 1 + d_42 * 0
+                d_41 = d_12 * 0 + d_22 * 0 + d_32 * 0 + d_42 * 1
+ 
+                print 'z'
+                print a_11, a_21, a_31, a_41
+                print b_11, b_21, b_31, b_41
+                print c_11, c_21, c_31, c_41
+                print d_11, d_21, d_31, d_41
+ 
+                a_1 = a_11 * 1 + a_21 * 0 + a_31 * 0 + a_41 * 0
+                a_2 = a_11 * 0 + a_21 * 1 + a_31 * 0 + a_41 * 0
+                a_3 = a_11 * 0 + a_21 * 0 + a_31 * 1 + a_41 * 0
+                a_4 = a_11 * dat[n+1][4] + a_21 * dat[n+2][4] + a_31 * dat[n+3][4] + a_41 * 1
+ 
+                b_1 = b_11 * 1 + b_21 * 0 + b_31 * 0 + b_41 * 0
+                b_2 = b_11 * 0 + b_21 * 1 + b_31 * 0 + b_41 * 0
+                b_3 = b_11 * 0 + b_21 * 0 + b_31 * 1 + b_41 * 0
+                b_4 = b_11 * dat[n + 1][4] + b_21 * dat[n + 2][4] + b_31 * dat[n + 3][4] + b_41 * 1
+ 
+                c_1 = c_11 * 1 + c_21 * 0 + c_31 * 0 + c_41 * 0
+                c_2 = c_11 * 0 + c_21 * 1 + c_31 * 0 + c_41 * 0
+                c_3 = c_11 * 0 + c_21 * 0 + c_31 * 1 + c_41 * 0
+                c_4 = c_11 * dat[n + 1][4] + c_21 * dat[n + 2][4] + c_31 * dat[n + 3][4] + c_41 * 1
+ 
+                d_1 = d_11 * 1 + d_21 * 0 + d_31 * 0 + d_41 * 0
+                d_2 = d_11 * 0 + d_21 * 1 + d_31 * 0 + d_41 * 0
+                d_3 = d_11 * 0 + d_21 * 0 + d_31 * 1 + d_41 * 0
+                d_4 = d_11 * dat[n + 1][4] + d_21 * dat[n + 2][4] + d_31 * dat[n + 3][4] + d_41 * 1
+ 
+                print 's'
+                print a_1 ,a_2 ,a_3,a_4
+                print b_1, b_2, b_3, b_4
+                print c_1, c_2, c_3, c_4
+                print d_1, d_2, d_3, d_4
+ 
+                if abs(a_1) < 1.0e-10:
+                    a_1 = 0
+                if abs(b_1) < 1.0e-10:
+                    b_1 = 0
+                if abs(c_1) < 1.0e-10:
+                    c_1 = 0
+                if abs(d_1) < 1.0e-10:
+                    d_1 = 0
+                if abs(a_2) < 1.0e-10:
+                    a_2 = 0
+                if abs(b_2) < 1.0e-10:
+                    b_2 = 0
+                if abs(c_2) < 1.0e-10:
+                    c_2 = 0
+                if abs(d_2) < 1.0e-10:
+                    d_2 = 0
+                if abs(a_3) < 1.0e-10:
+                    a_3 = 0
+                if abs(b_3) < 1.0e-10:
+                    b_3 = 0
+                if abs(c_3) < 1.0e-10:
+                    c_3 = 0
+                if abs(d_3) < 1.0e-10:
+                    d_3 = 0
+                if abs(a_4) < 1.0e-10:
+                    a_4 = 0
+                if abs(b_4) < 1.0e-10:
+                    b_4 = 0
+                if abs(c_4) < 1.0e-10:
+                    c_4 = 0
+                if abs(d_4) < 1.0e-10:
+                    d_4 = 0
+ 
+                m += 4
+ 
+                i=0
+                for word in dat[0]:
+                    i+=1
+                if i > 11:
+                    continue
+ 
+                dat[n + 1].append(a_1)
+                dat[n + 1].append(a_2)
+                dat[n + 1].append(a_3)
+                dat[n + 1].append(a_4)
+                dat[n + 2].append(b_1)
+                dat[n + 2].append(b_2)
+                dat[n + 2].append(b_3)
+                dat[n + 2].append(b_4)
+                dat[n + 3].append(c_1)
+                dat[n + 3].append(c_2)
+                dat[n + 3].append(c_3)
+                dat[n + 3].append(c_4)
+                dat[n + 4].append(d_1)
+                dat[n + 4].append(d_2)
+                dat[n + 4].append(d_3)
+                dat[n + 4].append(d_4)
+ 
+ 
+ 
+        print(dat)
+        t.delete(1.0, 'end')
+        for line in range(num):
+            t.insert(line + 1.0, '\n')
+            t.insert(line+1.0,dat[line])
+ 
+        #numpy.savetxt(filename, dat, delimiter=',')
+ 
+        for i in range(num):
+            for j in range(11):
+                dat[i][j] = str(dat[i][j])
+ 
+        os.remove(filename)
+        csvfile = file(filename, 'wb')
+        writer = CSV.writer(csvfile)
+        for line in range(num):
+            writer.writerow(dat[line])
+        csvfile.close()
+ 
+        print dat
+        '''
+        csvfile = file(filename, 'wb')
+        writer = CSV.writer(csvfile)
+        #writer.writerow(['a', 'b', 'c','x','trans','rot','function','a1', 'b1', 'c1','x1'])
+        for line in range(num):
+            writer.writerow(line)
+        csvfile.close()
+    '''
+ 
+def get_data(filename):
+    csvfile = file(filename, 'rb')
+    reader = CSV.reader(csvfile)
+    num = 1.0
+    dat = []
+    for line in reader:
+        dat.append(line)
+        num=num+1
+        t.insert(num, line)
+        t.insert(num, '\n')
+    csvfile.close()
+    pro_data(dat,filename)
+ 
+ 
+def get_file():
+    t.delete(1.0,'end')
+    filename = FD.askopenfilename()
+    get_data(filename)
+ 
+if __name__ == "__main__":
+    root = TK.Tk()
+    root.title("rqf_debug")
+    button = TK.Button(root, text="加载", command=get_file)
+    button.pack()
+    t = TK.Text(root)
+    t.insert(1.0, '说明/数据流')
+    t.pack()
+    root.mainloop
